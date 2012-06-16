@@ -1,0 +1,4 @@
+Django
+simplejson
+thrift
+pycassa

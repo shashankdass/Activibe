@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}My Timeline - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <ul id="timeline" class="grid_9 alpha">
+    {% if request.user.is_authenticated %}
+    
+        {% for tweet in tweets %}
+            <li>
+                <a href="{% url userline tweet.username %}" class="username">{{ tweet.username }}</a>
+                <span class="body">{{ tweet.body|urlize }}</span>
+            </li>
+        {% endfor %}
+    {% endif %}
+    </ul>
+    <ul id="timeline" class="grid_9 alpha">
+        	        {% if request.user.is_authenticated %}
+	    <div>
+            <script>
+		window.dhx_globalImgPath = "{{ MEDIA_URL }}/imgs/";
+	    </script>
+ 
+ 
+<table><tr><td id="parentId"></td><td style="padding-left:20px"><input style="width:80px" type="button" value="Submit" onclick="submitStatus(slider.getValue())"></td></tr></table>
+
+    <form name="my_status" method="post">
+        <input type="hidden" name="status" id="user_status" value="" style="visibility:hidden"><br>
+        <input type="hidden" name="user_id" id="user_id" value="{{request.session.username}}" style="visibility:hidden"/>
+        <input type="hidden" name="activibe" id="activibe" value="101" style="visibility:hidden"/>
+    </form>
+
+
+<br><br>
+    <ul id="timeline" class="grid_9 alpha">
+        {% for stats in status %}
+            <li>
+                <a href="{% url userline stats.username %}" class="username">{{ stats.username }}</a>
+                <span class="body">{{ stats.body|urlize }}</span>
+            </li>
+        {% endfor %}
+    </ul> 
+<script>
+var slider = new dhtmlxSlider("parentId", 400);
+slider.init();
+</script>
+<!--table>
+<tr><td width="100">Value:</td><td width="70" align="right" ><input id="val" value="50" type="text"></td></tr>
+<tr><td>Minimum value:</td><td align="right"><input id="min" value="50" type="text"></td></tr>
+<tr><td>Maximum value:</td><td align="right"><input id="max" value="250" type="text"></td></tr>
+<tr><td>Step:</td><td align="right"><input id="step" value="10" type="text"></td></tr>
+<tr><td colspan="2" align="center"><input style="width:100px" type="button" value="Update scale" onclick=" updateScale();"></td></tr>
+</table-->
+<script>
+
+
+function updateScale() {
+    slider.setMin(document.getElementById("min").value);
+    slider.setMax(document.getElementById("max").value);
+    slider.setValue(document.getElementById("val").value);
+    slider.setStep(document.getElementById("step").value);
+}
+</script>
+	    </div>
+        	        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block sidebar %}
+    {% if not request.user.is_authenticated %}
+        <a href="{% url login %}">Log in to post a tweet</a>
+    {% endif %}
+{% endblock %}
